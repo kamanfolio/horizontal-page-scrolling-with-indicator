@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        /* overflow: scroll;
+        overflow-x: scroll; */
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scroll-snap-type: mandatory;
+      }
+      .test {
+        display: flex;
+        /* overflow-x: scroll; */
+        overflow: scroll;
+        white-space: nowrap;
+        width: 100%;
+      }
+      section {
+        height: 100vh;
+        min-width: 50vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: normal;
+      }
+      section:nth-child(even) {
+        background-color: #000;
+        color: #fff;
+      }
+      p {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 3rem;
+      }
+      .h-progress-bar-container {
+        position: fixed;
+        bottom: 5%;
+        left: 5%;
+        width: 50vw;
+        height: 5px;
+        transition: 0.3s ease;
+      }
+      .h-progress-bar-bg {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: gray;
+        border-radius: 5px;
+      }
+      .h-progress {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background-color: darkorchid;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <main class="test">
+    <section>
+      <p>Section 1</p>
+    </section>
+    <section>
+      <p>Section 2</p>
+    </section>
+    <section>
+      <p>Section 3</p>
+    </section>
+    <section>
+      <p>Section 4</p>
+    </section>
+    <div class="h-progress-bar-container">
+      <div class="h-progress-bar-bg"></div>
+      <div class="h-progress"></div>
+    </div>
+    </main>
+    
+
+    <script>
+
+      // Horizontal Scrollbar Indicator Method 1 - Using document.documentElement
+      // window.onscroll = function () {
+
+      //   let windowScroll = document.documentElement.scrollLeft;
+      //   let windowWidth = document.querySelector('.test').scrollWidth - document.querySelector('.test').clientWidth;
+      //   let scrollAmount = (windowScroll / windowWidth) * 100;
+      //   document.querySelector(".h-progress").style.width = scrollAmount + "%";
+        
+      //   console.log(document.documentElement.scrollLeft);
+      //   console.log(document.querySelector('.test').scrollWidth);
+      //   console.log(document.querySelector('.test').clientWidth);
+
+      // };
+
+      
+      // Scrolling Up & Down with Page Moving Horizontally Method 1 - Using document.documentElement
+      // const scrollContainer = document.documentElement;
+
+      // if(scrollContainer) {
+      //   scrollContainer.addEventListener("wheel", (evt) => {
+      //       // evt.preventDefault();
+      //       scrollContainer.scrollLeft += evt.deltaY;
+      //       scrollContainer.scrollLeft += evt.deltaX;
+      //   });
+      // }  
+
+
+      // Horizontal Scrollbar Indicator Method 2  - Using querySelector
+      var testScrollContainer = document.querySelector('.test');
+          
+      testScrollContainer.addEventListener('scroll', (event) => {
+        testScrollContainer.classList.add('active'); 
+        let windowScroll = testScrollContainer.scrollLeft;
+        let windowWidth = testScrollContainer.scrollWidth - testScrollContainer.clientWidth;
+        let scrollAmount = (windowScroll / windowWidth) * 100;
+        document.querySelector(".h-progress").style.width = scrollAmount + "%";
+      });
+      
+      // Scrolling Up & Down with Page Moving Horizontally Method 1 - Using querySelector
+      testScrollContainer.addEventListener("wheel", (evt) => {
+        evt.preventDefault();
+        testScrollContainer.scrollLeft += evt.deltaY;
+        testScrollContainer.scrollLeft += evt.deltaX;
+      });  
+
+
+    </script>
+  </body>
+</html>
